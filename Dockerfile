@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-ARG RSPAMD_VERSION=1.9.0-r0
+ARG RSPAMD_VERSION=1.8.3-r0
 
 LABEL maintainer="docker-dario@neomediatech.it"
 
