@@ -1,5 +1,7 @@
 FROM alpine:latest
 
+ARG RSPAMD_VERSION=1.9.0-r0
+
 LABEL maintainer="docker-dario@neomediatech.it"
 
 RUN apk update; apk upgrade ; apk add --no-cache tzdata; cp /usr/share/zoneinfo/Europe/Rome /etc/localtime ; \ 
