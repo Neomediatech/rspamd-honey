@@ -1,3 +1,8 @@
+[![](https://images.microbadger.com/badges/version/neomediatech/rspamd-honey-alpine.svg)](https://microbadger.com/images/neomediatech/rspamd-honey-alpine)
+[![](https://images.microbadger.com/badges/image/neomediatech/rspamd-honey-alpine.svg)](https://microbadger.com/images/neomediatech/rspamd-honey-alpine)
+![](https://img.shields.io/github/last-commit/Neomediatech/rspamd-honey-docker-alpine.svg?style=plastic)
+![](https://img.shields.io/github/repo-size/Neomediatech/rspamd-honey-docker-alpine.svg?style=plastic)
+
 # rspamd-honey-docker-alpine
 Dockerized version of rspamd as honeypot service, based on Alpine Linux
 
