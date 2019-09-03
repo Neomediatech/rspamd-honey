@@ -12,14 +12,15 @@ LABEL maintainer="docker-dario@neomediatech.it" \
       org.label-schema.maintainer=Neomediatech
 
 RUN apk update; apk upgrade ; apk add --no-cache tzdata; cp /usr/share/zoneinfo/Europe/Rome /etc/localtime ; \ 
-    apk add --no-cache rspamd rspamd-controller rsyslog ca-certificates ; \ 
-    rm -rf /usr/local/share/doc /usr/local/share/man ; \ 
+    apk add --no-cache tini rspamd rspamd-controller rsyslog ca-certificates bash && \ 
+    rm -rf /usr/local/share/doc /usr/local/share/man && \ 
     mkdir /run/rspamd
 
 COPY conf/ /etc/rspamd
-COPY start.sh /start.sh
-RUN chmod +x /start.sh
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 HEALTHCHECK --interval=10s --timeout=5s --start-period=10s --retries=5 CMD rspamadm control -s /run/rspamd/rspamd.sock stat|grep -m1 uptime || exit 1
 
-CMD ["/start.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["tini","--","rspamd","-i","-f"]
