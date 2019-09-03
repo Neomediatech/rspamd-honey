@@ -2,6 +2,7 @@ FROM alpine:3.10
 
 ENV RSPAMD_VERSION=1.9.4-r0
 ENV BUILD_DATE=2019-05-29
+ENV ALPINE_VERSION=3.10
 
 LABEL maintainer="docker-dario@neomediatech.it" \ 
       org.label-schema.version=$VERSION \
