@@ -20,6 +20,6 @@ COPY conf/ /etc/rspamd
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
-HEALTHCHECK --interval=10s --timeout=5s --start-period=10s --retries=5 CMD rspamadm control stat|egrep "type|uptime" 
+HEALTHCHECK --interval=10s --timeout=5s --start-period=10s --retries=5 CMD rspamadm control stat|egrep "type|uptime" || exit 1
 
 CMD ["/start.sh"]
