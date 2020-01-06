@@ -3,15 +3,14 @@
 ![](https://img.shields.io/github/last-commit/Neomediatech/rspamd-honey-docker-alpine.svg?style=plastic)
 ![](https://img.shields.io/github/repo-size/Neomediatech/rspamd-honey-docker-alpine.svg?style=plastic)
 
-# rspamd-honey-docker-alpine
-Dockerized version of rspamd as honeypot service, based on Alpine Linux
+Dockerized version of rspamd as honeypot service, based on Ubuntu
 
 ## Usage
 You can run this container with this command:  
-`docker run -d --name rspamd-honey-alpine neomediatech/rspamd-honey-alpine`  
+`docker run -d --name rspamd-honey neomediatech/rspamd-honey`  
 
 Logs are written inside the container, in /var/log/rspamd/, and on stdout. You can see realtime logs running this command:  
-`docker logs -f rspamd-honey-alpine`  
+`docker logs -f rspamd-honey`  
 `CTRL c` to stop seeing logs.  
 
 If you want to map logs outside the container you can add:  
@@ -25,7 +24,7 @@ version: '3'
 
 services:  
   rspamd:  
-    image: neomediatech/rspamd-honey-alpine:latest  
+    image: neomediatech/rspamd-honey:latest  
     hostname: rspamd-honey  
 ```
 Save on a file and then run:  
