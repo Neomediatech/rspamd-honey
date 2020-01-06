@@ -44,7 +44,7 @@ LOGFILE="/var/log/rspamd/rspamd.log"
 mkdir -p /var/log/rspamd
 if [ ! -f $LOGFILE ]; then
     touch $LOGFILE
-    chown rspamd:rspamd $LOGFILE
+    chown _rspamd:_rspamd $LOGFILE
 fi
 
 if [ -d /var/lib/rspamd/dynamic ]; then
@@ -85,7 +85,7 @@ if [ -n "$WAITFOR" ]; then
         ;;
       "redis")
         PORT=${PORT:-6379}
-        check_service 'timeout -t 2 redis-cli -h $NAME -p $PORT PING'
+        check_service 'timeout 2 redis-cli -h $NAME -p $PORT PING'
         ;;
       *)
         check_service 'ping -c1 $NAME 1>/dev/null 2>/dev/null'
