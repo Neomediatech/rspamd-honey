@@ -1,26 +1,34 @@
-FROM alpine:3.10
+FROM neomediatech/ubuntu-base
 
-ENV RSPAMD_VERSION=1.9.4-r0
-ENV BUILD_DATE=2019-05-29
-ENV ALPINE_VERSION=3.10
+ENV VERSION=2.2-1~bionic \
+    DEBIAN_FRONTEND=noninteractive \
+    SERVICE=rspamd-honey \
+    OS=ubuntu
+
 
 LABEL maintainer="docker-dario@neomediatech.it" \ 
-      org.label-schema.version=$RSPAMD_VERSION \
-      org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.version=$VERSION \
       org.label-schema.vcs-type=Git \
-      org.label-schema.vcs-url=https://github.com/Neomediatech/rspamd-honey-docker-alpine \
+      org.label-schema.vcs-url=https://github.com/Neomediatech/${SERVICE} \
       org.label-schema.maintainer=Neomediatech
 
-RUN apk update; apk upgrade ; apk add --no-cache tzdata; cp /usr/share/zoneinfo/Europe/Rome /etc/localtime ; \ 
-    apk add --no-cache tini rspamd rspamd-controller rsyslog ca-certificates bash && \ 
-    rm -rf /usr/local/share/doc /usr/local/share/man && \ 
-    mkdir /run/rspamd
+RUN apt-get update && apt-get -y dist-upgrade && \
+    apt-get install -y lsb-release wget gnupg && \
+    CODENAME=`lsb_release -c -s` && \
+    wget -O- https://rspamd.com/apt-stable/gpg.key | apt-key add - && \
+    echo "deb [arch=amd64] http://rspamd.com/apt-stable/ $CODENAME main" > /etc/apt/sources.list.d/rspamd.list && \
+    echo "deb-src [arch=amd64] http://rspamd.com/apt-stable/ $CODENAME main" >> /etc/apt/sources.list.d/rspamd.list && \
+    apt-get update && \
+    apt-get --no-install-recommends install -y rspamd && \
+    rm -rf /var/lib/apt/lists/* && \
+    echo 'pidfile = false;' > /etc/rspamd/override.d/options.inc
+
 
 COPY conf/ /etc/rspamd
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-HEALTHCHECK --interval=10s --timeout=5s --start-period=10s --retries=5 CMD rspamadm control -s /run/rspamd/rspamd.sock stat|grep -m1 uptime || exit 1
+HEALTHCHECK --interval=30s --timeout=30s --start-period=10s --retries=20 CMD rspamadm control stat |grep uptime|head -1 || ( echo "no uptime, no party\!" && exit 1 )
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["tini","--","rspamd","-i","-f"]
+CMD [ "/usr/bin/rspamd", "-f", "-u", "_rspamd", "-g", "_rspamd" ]
