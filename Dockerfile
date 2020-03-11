@@ -1,6 +1,6 @@
 FROM neomediatech/ubuntu-base:latest
 
-ENV VERSION=2.2-1~bionic \
+ENV VERSION=2.4-2~bionic \
     DEBIAN_FRONTEND=noninteractive \
     SERVICE=rspamd-honey \
     OS=ubuntu
