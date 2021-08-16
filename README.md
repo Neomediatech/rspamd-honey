@@ -2,6 +2,7 @@
 [![](https://images.microbadger.com/badges/image/neomediatech/rspamd-honey.svg)](https://microbadger.com/images/neomediatech/rspamd-honey)
 ![](https://img.shields.io/github/last-commit/Neomediatech/rspamd-honey.svg?style=plastic)
 ![](https://img.shields.io/github/repo-size/Neomediatech/rspamd-honey.svg?style=plastic)
+[![Docker Pulls](https://img.shields.io/docker/pulls/neomediatech/rspamd-honey.svg?style=plastic)](https://hub.docker.com/r/neomediatech/rspamd-honey/)
 
 Dockerized version of rspamd as honeypot service, based on Ubuntu
 
