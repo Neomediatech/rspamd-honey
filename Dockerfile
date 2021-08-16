@@ -1,6 +1,6 @@
-FROM neomediatech/ubuntu-base:latest
+FROM neomediatech/ubuntu-base:20.04
 
-ENV VERSION=2.4-2~bionic \
+ENV VERSION=2.7-42~focal \
     DEBIAN_FRONTEND=noninteractive \
     SERVICE=rspamd-honey \
     OS=ubuntu
